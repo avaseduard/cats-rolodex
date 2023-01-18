@@ -1,21 +1,35 @@
 // import { Component } from 'react'; // for react with classes
-import { useState, useEffect } from 'react'; // for react with functions and hooks
-import logo from './logo.svg';
+import { useState, useEffect, ChangeEvent } from 'react'; // for react with functions and hooks
+// import logo from './logo';
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component';
+import { getData } from './utils/data.utils';
 import './App.css';
+
+export type Monster = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 const App = () => {
   // Setting searchField to a initial value of '' and then using the setSearchField to update it; react rerenders the whole app component when the value is different to the setValue
   const [searchField, setSearchField] = useState(''); // [value, setValue]
-  const [monsters, setMonsters] = useState([]);
+  const [monsters, setMonsters] = useState<Monster[]>([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
   // The useEffect hook takes in two arguments: a callback function and an array of dependencies; the callback is the effect (code) we want to happen; whenever the value in the array changes, the callback function will run; by having an empty dependencies array, the useEffect runs only once, at the first render
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(users => setMonsters(users));
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    //   .then(response => response.json())
+    //   .then(users => setMonsters(users));
+    const fetchUsers = async () => {
+      const users = await getData<Monster[]>(
+        'https://jsonplaceholder.typicode.com/users'
+      );
+      setMonsters(users);
+    };
+    fetchUsers();
   }, []);
 
   useEffect(() => {
@@ -28,7 +42,7 @@ const App = () => {
   }, [monsters, searchField]); // run the callback only when monsters array changes or searchField
 
   // Take in the search box input string and passes it to the setValue
-  const onSearchChange = event => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   };

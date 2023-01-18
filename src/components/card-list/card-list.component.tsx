@@ -1,9 +1,14 @@
 // import { Component } from 'react';
-import './card-list.styles.css';
 import Card from '../card/card.component';
+import { Monster } from '../../App';
+import './card-list.styles.css';
+
+type CardListProps = {
+  monsters: Monster[];
+};
 
 const CardList = (
-  { monsters } // we are destructuring the props directly
+  { monsters }: CardListProps // directly destructuring the props directly
 ) => (
   <div className="card-list">
     {monsters.map(monster => {
