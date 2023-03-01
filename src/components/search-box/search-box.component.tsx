@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import { ChangeEventHandler } from 'react';
 import './search-box.styles.css';
 
@@ -8,6 +7,7 @@ type SearchBoxProps = {
   onChangeHandler: ChangeEventHandler<HTMLInputElement>;
 };
 
+// Functional component
 const SearchBox = ({
   className,
   placeholder,
@@ -21,6 +21,7 @@ const SearchBox = ({
   />
 );
 
+// // Class component
 // class SearchBox extends Component {
 //   render() {
 //     return (

@@ -1,19 +1,20 @@
 // import { Component } from 'react';
-import { Monster } from '../../App';
+import { Cat } from '../../App';
 import './card.styles.css';
 
 type CardProps = {
-  monster: Monster;
+  cat: Cat;
 }
 
-const Card = ({monster}: CardProps) => {
-  const { id, name, email } = monster
+// Functional component
+const Card = ({cat}: CardProps) => {
+  const { id, name, email } = cat
 
   return (
     <div className="card-container" key={id}>
       <img
-        src={`https://robohash.org/${id + 100}?set=set2&size=180x180`}
-        alt={`monster ${name}`}
+        src={`https://robohash.org/${id + 100}?set=set4&size=180x180`}
+        alt={`cat ${name}`}
       />
       <h2>{name}</h2>
       <p>{email}</p>
@@ -21,15 +22,16 @@ const Card = ({monster}: CardProps) => {
   );
 };
 
+// // Class component
 // class Card extends Component {
 //   render() {
-//     const { id, name, email } = this.props.monster;
+//     const { id, name, email } = this.props.cat;
 
 //     return (
 //       <div className="card-container" key={id}>
 //         <img
 //           src={`https://robohash.org/${id + 100}?set=set2&size=180x180`}
-//           alt={`monster ${name}`}
+//           alt={`cat ${name}`}
 //         />
 //         <h2>{name}</h2>
 //         <p>{email}</p>

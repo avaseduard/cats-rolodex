@@ -1,32 +1,33 @@
-// import { Component } from 'react';
 import Card from '../card/card.component';
-import { Monster } from '../../App';
+import { Cat } from '../../App';
 import './card-list.styles.css';
 
 type CardListProps = {
-  monsters: Monster[];
+  cats: Cat[];
 };
 
+// Functional component
 const CardList = (
-  { monsters }: CardListProps // directly destructuring the props directly
+  { cats }: CardListProps // directly destructuring the props directly
 ) => (
   <div className="card-list">
-    {monsters.map(monster => {
-      return <Card monster={monster} />;
+    {cats.map(cat => {
+      return <Card cat={cat} />;
     })}
   </div>
 );
 
+// // Class component
 // class CardList extends Component {
 //   render() {
 //     console.log('render card-list');
 
-//     const { monsters } = this.props;
+//     const { cats } = this.props;
 
 //     return (
 //       <div className="card-list">
-//         {monsters.map(monster => {
-//           return <Card monster={monster} />;
+//         {cats.map(cat => {
+//           return <Card cat={cat} />;
 //         })}
 //       </div>
 //     );

@@ -6,7 +6,7 @@ import SearchBox from './components/search-box/search-box.component';
 import { getData } from './utils/data.utils';
 import './App.css';
 
-export type Monster = {
+export type Cat = {
   id: string;
   name: string;
   email: string;
@@ -15,31 +15,28 @@ export type Monster = {
 const App = () => {
   // Setting searchField to a initial value of '' and then using the setSearchField to update it; react rerenders the whole app component when the value is different to the setValue
   const [searchField, setSearchField] = useState(''); // [value, setValue]
-  const [monsters, setMonsters] = useState<Monster[]>([]);
-  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+  const [cats, setCats] = useState<Cat[]>([]);
+  const [filteredCats, setFilteredCats] = useState(cats);
 
   // The useEffect hook takes in two arguments: a callback function and an array of dependencies; the callback is the effect (code) we want to happen; whenever the value in the array changes, the callback function will run; by having an empty dependencies array, the useEffect runs only once, at the first render
   useEffect(() => {
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    //   .then(response => response.json())
-    //   .then(users => setMonsters(users));
     const fetchUsers = async () => {
-      const users = await getData<Monster[]>(
+      const users = await getData<Cat[]>(
         'https://jsonplaceholder.typicode.com/users'
       );
-      setMonsters(users);
+      setCats(users);
     };
     fetchUsers();
   }, []);
 
   useEffect(() => {
-    // Filter the monsters by the search field input
-    const newFilteredMonsters = monsters.filter(monster =>
-      monster.name.toLocaleLowerCase().includes(searchField)
+    // Filter the cats by the search field input
+    const newFilteredCats = cats.filter(cat =>
+      cat.name.toLocaleLowerCase().includes(searchField)
     );
 
-    setFilteredMonsters(newFilteredMonsters);
-  }, [monsters, searchField]); // run the callback only when monsters array changes or searchField
+    setFilteredCats(newFilteredCats);
+  }, [cats, searchField]); // run the callback only when cats array changes or searchField
 
   // Take in the search box input string and passes it to the setValue
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -49,13 +46,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="app-title">Monsters rolodex</h1>
+      <h1 className="app-title">Cats rolodex</h1>
       <SearchBox
         onChangeHandler={onSearchChange}
-        placeholder="search for monsters"
-        className="monsters-search-box"
+        placeholder="search for cats"
+        className="cats-search-box"
       />
-      <CardList monsters={filteredMonsters} />
+      <CardList cats={filteredCats} />
     </div>
   );
 };
@@ -66,7 +63,7 @@ const App = () => {
 //     super();
 
 //     this.state = {
-//       monsters: [],
+//       cats: [],
 //       searchField: '',
 //     };
 //     console.log('constructor');
@@ -80,7 +77,7 @@ const App = () => {
 //       .then(users =>
 //         this.setState(
 //           () => {
-//             return { monsters: users };
+//             return { cats: users };
 //           },
 //           () => console.log(this.state)
 //         )
@@ -99,18 +96,18 @@ const App = () => {
 //     console.log('render app');
 
 //     // Use destructuring to write just the constantName where we need it, instead if this.state.constantName
-//     const { monsters, searchField } = this.state;
+//     const { cats, searchField } = this.state;
 //     const { onSearchChange } = this;
 
-//     const filteredMonsters = monsters.filter(monster =>
-//       monster.name.toLocaleLowerCase().includes(searchField)
+//     const filteredCats = cats.filter(cat =>
+//       cat.name.toLocaleLowerCase().includes(searchField)
 //     );
 
 //     return (
 //       <div className="App">
-//         <h1 className='app-title'>Monsters rolodex</h1>
-//         <SearchBox onChangeHandler={onSearchChange} placeholder='search for monsters' className='monsters-search-box' />
-//         <CardList monsters={filteredMonsters} />
+//         <h1 className='app-title'>Cats rolodex</h1>
+//         <SearchBox onChangeHandler={onSearchChange} placeholder='search for cats' className='cats-search-box' />
+//         <CardList cats={filteredCats} />
 //       </div>
 //     );
 //   }
